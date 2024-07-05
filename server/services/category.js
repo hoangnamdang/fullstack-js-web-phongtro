@@ -12,7 +12,6 @@ export const getCategory = () =>
         data: response,
         msg: "get category success",
       });
-      console.log(response);
     } catch (error) {
       reject(error);
     }

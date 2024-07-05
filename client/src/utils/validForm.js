@@ -7,6 +7,7 @@ export const validateEmail = (email) => {
 //https://stackoverflow.com/questions/4338267/validate-phone-number-with-javascript
 export const validationPhone = (phone) => {
   const regex =
+    // eslint-disable-next-line
     /^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/;
   return regex.test(phone);
 };

@@ -29,7 +29,7 @@ function Login() {
     if (authState.isLoggedIn) {
       navigate("/");
     }
-  }, [authState]);
+  }, [authState, navigate]);
 
   const handleValidation = () => {
     let errorInput = {};

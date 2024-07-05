@@ -1,7 +1,7 @@
 import React from "react";
 import logo from "./../../asset/img/logo-phongtro.png";
 import {
-  FaHeart,
+  CiHeart,
   FiUserPlus,
   GoPlusCircle,
   IoIosLogIn,
@@ -33,7 +33,7 @@ function Header() {
       <div className="flex items-center gap-4">
         {!authState.isLoggedIn && (
           <>
-            <Button text={"Yeu thich"} IcBefore={FaHeart} />
+            <Button text={"Yeu thich"} IcBefore={CiHeart} />
             <Button
               text={"Dang nhap"}
               IcBefore={FiUserPlus}

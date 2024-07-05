@@ -6,12 +6,14 @@ import OfficeSpace from "./containers/Public/OfficeSpace";
 import RoomForRent from "./containers/Public/RoomForRent";
 import HouseForRent from "./containers/Public/HouseForRent";
 import RentalDepartment from "./containers/Public/RentalDepartment";
+import Homepage from "./containers/Public/Homepage";
 
 function App(props) {
   return (
     <div>
       <Routes>
         <Route path={Path.HOME} element={<Home />}>
+          <Route path="*" element={<Homepage />} />
           <Route path={Path.LOGIN} element={<Login />} />
           <Route path={Path.REGISTER} element={<Login />} />
           <Route path={Path.CHO_THUE_PHONG_TRO} element={<RoomForRent />} />

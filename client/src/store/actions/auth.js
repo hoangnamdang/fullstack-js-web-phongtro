@@ -21,6 +21,7 @@ export const register = (data) => async (dispatch) => {
     dispatch({
       type: actionTypes.REGISTER_FAIL,
       data: null,
+      msg: error,
     });
   }
 };

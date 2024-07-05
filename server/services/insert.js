@@ -3,24 +3,25 @@ import chothuephongtro from "../data/chothuephongtro.json";
 import nhachothue from "../data/nhachothue.json";
 import chothuecanho from "../data/chothuecanho.json";
 import chothuematbang from "../data/chothuematbang.json";
-import { generateCode } from "../utils/generateCode";
+import { generateLabelCode } from "../utils/generateCode";
 import { v4 } from "uuid";
 export const insertData = () =>
   new Promise(async (resove, reject) => {
     try {
-      const categoryCode = "CTMB";
-      const categoryValue = "Cho thuê mặt bằng";
-      const categoryHeader = chothuematbang?.header?.title;
-      const categorySubheader = chothuematbang?.header?.description;
+      const categoryCode = "CTPT";
+      const categoryValue = "Cho thuê phòng trọ";
+      const categoryHeader = chothuephongtro?.header?.title;
+      const categorySubheader = chothuephongtro?.header?.description;
       await db.Category.create({
         code: categoryCode,
         value: categoryValue,
         header: categoryHeader,
         subheader: categorySubheader,
       });
-      for (let item of chothuematbang.body) {
-        const labelCode = generateCode(4);
-        const attributesId = v4();
+      for (let item of chothuephongtro.body) {
+        const labelCode = generateLabelCode(
+          item?.overview?.content.find((i) => i.name === "Chuyên mục:")?.content
+        );
         const userId = v4();
         const overviewId = v4();
         const imagesId = v4();
@@ -33,7 +34,7 @@ export const insertData = () =>
           star: item?.header?.star,
           labelCode: labelCode,
           address: item?.header?.address,
-          attributesId: attributesId,
+          attributesId: attributeId,
           categoryCode: categoryCode,
           description: JSON.stringify(item?.mainContent?.content),
           userId: userId,
@@ -60,10 +61,13 @@ export const insertData = () =>
             (i) => i.name === "Ngày hết hạn:"
           )?.content,
         });
-        await db.Label.create({
-          code: labelCode,
-          value: item?.overview?.content.find((i) => i.name === "Chuyên mục:")
-            ?.content,
+        await db.Label.findOrCreate({
+          where: { code: labelCode },
+          defaults: {
+            code: labelCode,
+            value: item?.overview?.content.find((i) => i.name === "Chuyên mục:")
+              ?.content,
+          },
         });
         await db.Attribute.create({
           id: attributeId,
