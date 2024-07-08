@@ -6,7 +6,6 @@ import { string_to_slug } from "../../utils/stringToSlug";
 function Navigation() {
   const dispatch = useDispatch();
   const category = useSelector((state) => state.app.category);
-  console.log({ category });
 
   useEffect(() => {
     dispatch(action.getCategory());

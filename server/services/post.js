@@ -34,3 +34,51 @@ export const getPosts = () =>
       reject(error);
     }
   });
+
+export const getPostByLimit = (page, limit) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const pageStart = 1;
+      const offset = (page - pageStart) * limit;
+      const response = await db.Post.findAndCountAll({
+        nest: true,
+        raw: true,
+        offset: offset,
+        limit: limit,
+        include: [
+          {
+            model: db.Attribute,
+            as: "attributes",
+            attributes: { exclude: ["id", "updatedAt", "createdAt"] },
+          },
+          {
+            model: db.Image,
+            as: "images",
+            attributes: { exclude: ["id", "updatedAt", "createdAt"] },
+          },
+          {
+            model: db.User,
+            as: "user",
+            attributes: { exclude: ["password", "updatedAt", "createdAt"] },
+          },
+        ],
+        attributes: {
+          exclude: [
+            "attributesId",
+            "userId",
+            "overviewId",
+            "imagesId",
+            "updatedAt",
+            "createdAt",
+          ],
+        },
+      });
+      resolve({
+        err: 0,
+        msg: "success get post",
+        data: response,
+      });
+    } catch (error) {
+      reject(error);
+    }
+  });

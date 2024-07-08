@@ -11,7 +11,8 @@ import { IoPricetagOutline } from "react-icons/io5";
 import { BiArea } from "react-icons/bi";
 import { FaStar } from "react-icons/fa";
 import { CiHeart } from "react-icons/ci";
-
+import { MdKeyboardDoubleArrowLeft } from "react-icons/md";
+import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 export {
   FaHeart,
   FiUserPlus,
@@ -26,4 +27,6 @@ export {
   BiArea,
   FaStar,
   CiHeart,
+  MdKeyboardDoubleArrowLeft,
+  MdKeyboardDoubleArrowRight,
 };

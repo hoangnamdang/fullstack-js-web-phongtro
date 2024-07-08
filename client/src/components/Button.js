@@ -8,15 +8,17 @@ function Button({
   IcAfter = null,
   customStyle = "",
   handleClick = null,
+  ...props
 }) {
   return (
     <button
       onClick={handleClick}
-      className={`flex items-center gap-2 hover:underline ${color} ${bgColor} ${customStyle}`}
+      className={`flex items-center gap-2 ${color} ${bgColor} ${customStyle}`}
+      {...props}
     >
-      {IcBefore && <IcBefore />}
+      {IcBefore && IcBefore}
       {text}
-      {IcAfter && <IcAfter />}
+      {IcAfter && IcAfter}
     </button>
   );
 }

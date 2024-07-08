@@ -2,14 +2,18 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Item from "../../components/Item";
 import * as action from "../../store/actions";
+import { Pagination } from "./index";
+import { useSearchParams } from "react-router-dom";
 const List = () => {
   const dispatch = useDispatch();
-  const listPost = useSelector((state) => state.post.posts);
-  console.log(listPost);
+  const { totalPage, listPost } = useSelector(
+    (state) => state.post.dataPostPagination
+  );
+  const [searchParams] = useSearchParams();
   useEffect(() => {
-    console.log("run dispatch");
-    dispatch(action.getAllPost());
-  }, [dispatch]);
+    const page = Number(searchParams.get("page") || 1);
+    dispatch(action.getPostsByLimit(page));
+  }, [dispatch, searchParams]);
 
   return (
     <div className="">
@@ -22,6 +26,7 @@ const List = () => {
       {listPost.map((post) => {
         return <Item key={post.id} data={post} />;
       })}
+      <Pagination totalPage={totalPage} />
     </div>
   );
 };

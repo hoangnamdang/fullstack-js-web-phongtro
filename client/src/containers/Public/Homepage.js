@@ -1,8 +1,7 @@
 import React from "react";
-import Provice from "../../components/Provice";
+import Province from "../../components/Province";
 import { titleHomePage } from "../../utils/constant";
-import List from "./List";
-import SideBar from "./SideBar";
+import { List, SideBar } from "./index";
 
 const Homepage = () => {
   return (
@@ -13,7 +12,7 @@ const Homepage = () => {
         </h1>
         <p className="text-slate-600">{titleHomePage.description}</p>
       </div>
-      <Provice />
+      <Province />
       <div className="w-full flex justify-between gap-4 mt-5">
         <div className="w-2/3">
           <List />

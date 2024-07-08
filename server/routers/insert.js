@@ -1,5 +1,5 @@
 import express from "express";
-import * as insertController from "../controlers/insert";
+import * as insertController from "../controllers/insert";
 const router = express.Router();
 
 router.get("/", insertController.insertData);

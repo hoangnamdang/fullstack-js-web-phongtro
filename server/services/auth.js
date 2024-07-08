@@ -61,7 +61,6 @@ export const login = (body) =>
           : "Phone not found",
         token: token ? token : null,
       });
-      console.log(response);
     } catch (error) {
       reject(error);
     }

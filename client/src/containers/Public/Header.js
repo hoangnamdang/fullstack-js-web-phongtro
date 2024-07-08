@@ -33,15 +33,21 @@ function Header() {
       <div className="flex items-center gap-4">
         {!authState.isLoggedIn && (
           <>
-            <Button text={"Yeu thich"} IcBefore={CiHeart} />
+            <Button
+              text={"Yeu thich"}
+              customStyle="hover:underline"
+              IcBefore={<CiHeart />}
+            />
             <Button
               text={"Dang nhap"}
-              IcBefore={FiUserPlus}
+              IcBefore={<FiUserPlus />}
+              customStyle="hover:underline"
               handleClick={goLogin}
             />
             <Button
               text={"Dang ky"}
-              IcBefore={IoIosLogIn}
+              customStyle="hover:underline"
+              IcBefore={<IoIosLogIn />}
               handleClick={goRegister}
             />
           </>
@@ -51,7 +57,8 @@ function Header() {
             <span>Xin chao user </span>
             <Button
               text={"Dang xuat"}
-              IcBefore={CiLogout}
+              customStyle="hover:underline"
+              IcBefore={<CiLogout />}
               handleClick={handleLogout}
             />
           </>
@@ -61,8 +68,8 @@ function Header() {
           text={"Dang tin mien phi"}
           color={"text-white"}
           bgColor={"bg-red-600"}
-          IcAfter={GoPlusCircle}
-          customStyle={"p-2 rounded-md"}
+          IcAfter={<GoPlusCircle />}
+          customStyle={"p-2 rounded-md hover:underline"}
         />
       </div>
     </div>
