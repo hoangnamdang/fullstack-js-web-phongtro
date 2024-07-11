@@ -10,6 +10,7 @@ import {
   MdKeyboardDoubleArrowLeft,
   MdKeyboardDoubleArrowRight,
 } from "../../utils/icon";
+import { appendUrl } from "../../utils/commonUtil";
 const Pagination = ({ totalPage }) => {
   const [arrPage, setArrPage] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -18,10 +19,12 @@ const Pagination = ({ totalPage }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const [searchParams] = useSearchParams();
-
+  const queryUrlParams = searchParams.entries();
   useEffect(() => {
-    if (searchParams && searchParams.get("page")) {
-      setCurrentPage(Number(searchParams.get("page")));
+    if (searchParams) {
+      searchParams.get("page") &&
+        setCurrentPage(Number(searchParams.get("page")));
+      !searchParams.get("page") && setCurrentPage(1);
     }
   }, [searchParams]);
 
@@ -58,7 +61,9 @@ const Pagination = ({ totalPage }) => {
   }, [totalPage, currentPage]);
 
   const handleChangePage = (page) => {
-    const paramSearch = createSearchParams({ page: page }).toString();
+    const paramSearch = createSearchParams(
+      appendUrl(queryUrlParams, { page: page })
+    ).toString();
     navigate({
       pathname: location.pathname,
       search: paramSearch,

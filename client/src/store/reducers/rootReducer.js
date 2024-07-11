@@ -6,6 +6,7 @@ import { combineReducers } from "redux";
 import { persistReducer } from "redux-persist";
 import autoMergeLevel2 from "redux-persist/es/stateReconciler/autoMergeLevel2";
 import postReducer from "./postReducer";
+import filterReducer from "./filterReducer";
 
 const persistConfig = {
   storage: storage,
@@ -23,6 +24,7 @@ const rootReducer = combineReducers({
   user: userReducer,
   app: appReducer,
   post: postReducer,
+  filter: filterReducer,
 });
 
 export default rootReducer;

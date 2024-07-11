@@ -1,4 +1,6 @@
+import { Op } from "sequelize";
 import db from "../models";
+import { hasValue } from "../utils/commonUtils";
 
 export const getPosts = () =>
   new Promise(async (resolve, reject) => {
@@ -10,7 +12,7 @@ export const getPosts = () =>
           {
             model: db.Attribute,
             as: "attributes",
-            attributes: ["id", "price", "acreage", "published", "hashtag"],
+            attributes: ["id", "published", "hashtag"],
           },
           {
             model: db.Image,
@@ -23,7 +25,15 @@ export const getPosts = () =>
             attributes: ["name", "phone", "avatar"],
           },
         ],
-        attributes: ["id", "title", "star", "address", "description"],
+        attributes: [
+          "id",
+          "title",
+          "star",
+          "address",
+          "description",
+          "price",
+          "acreage",
+        ],
       });
       resolve({
         err: 0,
@@ -35,16 +45,60 @@ export const getPosts = () =>
     }
   });
 
-export const getPostByLimit = (page, limit) =>
+export const getPostByLimit = (page, limit, query) =>
   new Promise(async (resolve, reject) => {
+    let searchStr = {};
+    if ((await hasValue(query?.gia_tu)) && !(await hasValue(query?.gia_den))) {
+      searchStr.price = {
+        [Op.gte]: query.gia_tu,
+      };
+    }
+    if (!(await hasValue(query?.gia_tu)) && (await hasValue(query?.gia_den))) {
+      searchStr.price = {
+        [Op.lte]: query.gia_den,
+      };
+    }
+    if ((await hasValue(query?.gia_tu)) && (await hasValue(query?.gia_den))) {
+      searchStr.price = {
+        [Op.between]: [query.gia_tu, query.gia_den],
+      };
+    }
+
+    if (
+      (await hasValue(query?.dien_tich_tu)) &&
+      !(await hasValue(query?.dien_tich_den))
+    ) {
+      searchStr.acreage = {
+        [Op.gte]: query.dien_tich_tu,
+      };
+    }
+    if (
+      (await hasValue(query?.dien_tich_den)) &&
+      !(await hasValue(query?.dien_tich_tu))
+    ) {
+      searchStr.acreage = {
+        [Op.lte]: query.dien_tich_den,
+      };
+    }
+    if (
+      (await hasValue(query?.dien_tich_tu)) &&
+      (await hasValue(query?.dien_tich_den))
+    ) {
+      searchStr.acreage = {
+        [Op.between]: [query.dien_tich_tu, query?.dien_tich_den],
+      };
+    }
+
+    const formatLimit = Number(limit);
     try {
       const pageStart = 1;
-      const offset = (page - pageStart) * limit;
+      const offset = (page - pageStart) * formatLimit;
       const response = await db.Post.findAndCountAll({
+        where: searchStr,
         nest: true,
         raw: true,
         offset: offset,
-        limit: limit,
+        limit: formatLimit,
         include: [
           {
             model: db.Attribute,

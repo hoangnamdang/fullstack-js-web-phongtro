@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { CiHeart, FaStar, FaHeart } from "../utils/icon";
-const Item = ({ data }) => {
+const ListItem = ({ data }) => {
   const [isHover, setIsHover] = useState(false);
   const images = JSON.parse(data.images.image);
   const description = JSON.parse(data?.description).join(", ");
   const numStar = Number(data?.star) || 0;
   return (
-    <div className="w-full border-2 border-t-red-400 p-2 flex justify-between gap-3">
+    <div className="w-full border-2 border-t-red-400 p-4 flex justify-between gap-3">
       <div className="w-2/5">
         <div className="relative">
           <div className="flex flex-wrap gap-2">
@@ -56,9 +56,9 @@ const Item = ({ data }) => {
         </div>
         <div>
           <span className="font-bold text-green-600 text-lg mr-4">
-            {data?.attributes?.price ?? ""}
+            {data?.price ?? ""}
           </span>
-          <span className="mr-4">{data?.attributes?.acreage ?? ""}</span>
+          <span className="mr-4">{data?.acreage ?? ""}</span>
           <span className="hover:underline">{data?.address ?? ""}</span>
           <span className="block text-right text-gray-500">
             {data?.published ?? ""}
@@ -83,4 +83,4 @@ const Item = ({ data }) => {
   );
 };
 
-export default Item;
+export default ListItem;

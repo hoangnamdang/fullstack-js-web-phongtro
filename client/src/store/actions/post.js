@@ -26,13 +26,13 @@ export const getAllPost = () => async (dispatch) => {
   }
 };
 
-export const getPostsByLimit = (page) => async (dispatch) => {
+export const getPostsByLimit = (params) => async (dispatch) => {
   try {
     const limit = Number(process.env.REACT_APP_LIMIT_POST) || 10;
-    const response = await apiGetPostsByLimit(page, limit);
+    const response = await apiGetPostsByLimit(limit, params);
     const countPost = response.data.data.count;
     const listPost = response.data.data.rows;
-    const totalPage = Math.floor(countPost / limit);
+    const totalPage = Math.ceil(countPost / limit);
     if (response.data.err === 0) {
       dispatch({
         type: actionTypes.GET_POST_BY_LIMIT_SUCCESS,

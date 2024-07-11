@@ -1,4 +1,4 @@
-const { default: actionTypes } = require("../actions/actionTypes");
+import actionTypes from "../actions/actionTypes";
 
 const initialState = {
   posts: [],

@@ -1,0 +1,5 @@
+https://stackoverflow.com/questions/65800658/react-router-v6-navigate-to-a-url-with-searchparams
+https://stackoverflow.com/questions/51165069/why-is-my-sequelize-query-that-sums-a-decimal-column-returning-as-a-string
+
+https://github.com/sequelize/sequelize/issues/12336
+https://stackoverflow.com/questions/75670683/avoid-bypass-query-parameters-if-value-is-null-on-sequelize-express-node-js

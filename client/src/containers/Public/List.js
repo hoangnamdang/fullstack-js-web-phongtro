@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Item from "../../components/Item";
 import * as action from "../../store/actions";
 import { Pagination } from "./index";
 import { useSearchParams } from "react-router-dom";
+import ListItem from "../../components/ListItem";
 const List = () => {
   const dispatch = useDispatch();
   const { totalPage, listPost } = useSelector(
@@ -11,22 +11,33 @@ const List = () => {
   );
   const [searchParams] = useSearchParams();
   useEffect(() => {
-    const page = Number(searchParams.get("page") || 1);
-    dispatch(action.getPostsByLimit(page));
+    let paramUrl = {};
+    searchParams.forEach((value, key) => {
+      paramUrl[key] = value;
+    });
+    dispatch(action.getPostsByLimit(paramUrl));
   }, [dispatch, searchParams]);
 
   return (
-    <div className="">
-      <h4 className="font-bold text-xl text-gray-800">Tổng 128.761 kết quả</h4>
-      <div className="flex items-center gap-4">
-        <span>Sap xep:</span>
-        <button>Mặc định</button>
-        <button>Mới nhất</button>
+    <div className="bg-white rounded-md">
+      <div className="p-5">
+        <h4 className="font-bold text-xl text-gray-800">
+          Tổng 128.761 kết quả
+        </h4>
+        <div className="flex items-center gap-4">
+          <span>Sap xep:</span>
+          <button>Mặc định</button>
+          <button>Mới nhất</button>
+        </div>
       </div>
-      {listPost.map((post) => {
-        return <Item key={post.id} data={post} />;
-      })}
-      <Pagination totalPage={totalPage} />
+      {listPost.length === 0 && (
+        <p className="p-5">Không có kết quả tìm kiếm</p>
+      )}
+      {listPost.length > 0 &&
+        listPost.map((post) => {
+          return <ListItem key={post.id} data={post} />;
+        })}
+      {listPost.length > 0 && <Pagination totalPage={totalPage} />}
     </div>
   );
 };

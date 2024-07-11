@@ -4,10 +4,11 @@ export const apiGetAllPost = async () => {
   return response;
 };
 
-export const apiGetPostsByLimit = async (page, limit) => {
-  const response = await axios.post("/api/v1/post/limit", {
-    page: page,
-    limit: limit,
+export const apiGetPostsByLimit = async (limit, query) => {
+  const response = await axios({
+    method: "get",
+    url: "/api/v1/post/limit",
+    params: { ...query, limit },
   });
   return response;
 };

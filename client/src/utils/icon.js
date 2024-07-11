@@ -13,6 +13,7 @@ import { FaStar } from "react-icons/fa";
 import { CiHeart } from "react-icons/ci";
 import { MdKeyboardDoubleArrowLeft } from "react-icons/md";
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
+import { TfiAngleRight } from "react-icons/tfi";
 export {
   FaHeart,
   FiUserPlus,
@@ -29,4 +30,5 @@ export {
   CiHeart,
   MdKeyboardDoubleArrowLeft,
   MdKeyboardDoubleArrowRight,
+  TfiAngleRight,
 };
