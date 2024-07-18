@@ -45,8 +45,11 @@ export const getPosts = () =>
     }
   });
 
-export const getPostByLimit = (page, limit, query) =>
+export const getPostByLimit = (query) =>
   new Promise(async (resolve, reject) => {
+    const page = Number(query?.page) || 1;
+    const limit = Number(query?.limit) || 10;
+    const categoryCode = query?.categoryCode || "CTPT";
     let searchStr = {};
     if ((await hasValue(query?.gia_tu)) && !(await hasValue(query?.gia_den))) {
       searchStr.price = {
@@ -86,6 +89,12 @@ export const getPostByLimit = (page, limit, query) =>
     ) {
       searchStr.acreage = {
         [Op.between]: [query.dien_tich_tu, query?.dien_tich_den],
+      };
+    }
+
+    if (await hasValue(categoryCode)) {
+      searchStr.categoryCode = {
+        [Op.eq]: categoryCode,
       };
     }
 
