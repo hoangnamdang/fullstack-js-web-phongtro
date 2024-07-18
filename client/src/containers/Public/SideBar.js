@@ -1,18 +1,12 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getFilterAcreage, getFilterPrice } from "../../store/actions";
+import React from "react";
+import { useSelector } from "react-redux";
 import { SideBarItem, RelatedPost } from "../../components";
 const SideBar = () => {
-  const dispatch = useDispatch();
   const dataFilterPrice = useSelector((state) => state.filter.dataFilterPrice);
   const categories = useSelector((state) => state.app.category);
   const dataFilterAcreage = useSelector(
     (state) => state.filter.datFilerAcreage
   );
-  useEffect(() => {
-    dispatch(getFilterPrice());
-    dispatch(getFilterAcreage());
-  }, [dispatch]);
   return (
     <div>
       <SideBarItem

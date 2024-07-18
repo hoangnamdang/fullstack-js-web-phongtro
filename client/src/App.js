@@ -1,14 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Path } from "./utils/path";
 import { Route, Routes } from "react-router-dom";
-import { Home, Login } from "./containers/Public";
-import OfficeSpace from "./containers/Public/OfficeSpace";
-import RoomForRent from "./containers/Public/RoomForRent";
-import HouseForRent from "./containers/Public/HouseForRent";
-import RentalDepartment from "./containers/Public/RentalDepartment";
-import Homepage from "./containers/Public/Homepage";
+import { Home, Login, Homepage, Rent } from "./containers/Public";
+import { useDispatch } from "react-redux";
+import * as action from "./store/actions";
 
 function App(props) {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(action.getFilterPrice());
+    dispatch(action.getFilterAcreage());
+  }, [dispatch]);
+
   return (
     <div>
       <Routes>
@@ -16,10 +20,10 @@ function App(props) {
           <Route path="*" element={<Homepage />} />
           <Route path={Path.LOGIN} element={<Login />} />
           <Route path={Path.REGISTER} element={<Login />} />
-          <Route path={Path.CHO_THUE_PHONG_TRO} element={<RoomForRent />} />
-          <Route path={Path.NHA_CHO_THUE} element={<HouseForRent />} />
-          <Route path={Path.CHO_THUE_MAT_BANG} element={<OfficeSpace />} />
-          <Route path={Path.CHO_THUE_CAN_HO} element={<RentalDepartment />} />
+          <Route path={Path.CHO_THUE_PHONG_TRO} element={<Rent />} />
+          <Route path={Path.NHA_CHO_THUE} element={<Rent />} />
+          <Route path={Path.CHO_THUE_MAT_BANG} element={<Rent />} />
+          <Route path={Path.CHO_THUE_CAN_HO} element={<Rent />} />
         </Route>
       </Routes>
     </div>

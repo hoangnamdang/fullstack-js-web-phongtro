@@ -4,7 +4,7 @@ import * as action from "../../store/actions";
 import { Pagination } from "./index";
 import { useSearchParams } from "react-router-dom";
 import ListItem from "../../components/ListItem";
-const List = () => {
+const List = ({ categoryCode }) => {
   const dispatch = useDispatch();
   const { totalPage, listPost } = useSelector(
     (state) => state.post.dataPostPagination
@@ -15,8 +15,9 @@ const List = () => {
     searchParams.forEach((value, key) => {
       paramUrl[key] = value;
     });
+    if (categoryCode) paramUrl.categoryCode = categoryCode;
     dispatch(action.getPostsByLimit(paramUrl));
-  }, [dispatch, searchParams]);
+  }, [dispatch, searchParams, categoryCode]);
 
   return (
     <div className="bg-white rounded-md mb-8">

@@ -10,12 +10,12 @@ function Navigation() {
   useEffect(() => {
     dispatch(action.getCategory());
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
-  const active = "bg-red-600 px-2";
-  const notActive = "hover:bg-red-600 px-2";
+  const active = "bg-red-600 px-4";
+  const notActive = "hover:bg-red-600 px-4";
   return (
     <div className="bg-blue-600 m-auto">
       <div className="w-1100 m-auto text-white font-semibold h-[40px]">
-        <ul className="flex justify-between leading-10">
+        <ul className="flex leading-10">
           <NavLink
             to={"/"}
             className={({ isActive }) => (isActive ? active : notActive)}
@@ -27,6 +27,7 @@ function Navigation() {
               return (
                 <NavLink
                   key={lk.code}
+                  state={{ categoryCode: lk.code }}
                   className={({ isActive }) => (isActive ? active : notActive)}
                   to={string_to_slug(lk.value)}
                 >
