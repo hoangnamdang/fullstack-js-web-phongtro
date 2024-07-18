@@ -12,3 +12,8 @@ export const apiGetPostsByLimit = async (limit, query) => {
   });
   return response;
 };
+
+export const apiGetNewsPost = async () => {
+  const response = await axios.get("/api/v1/post/news-post");
+  return response;
+};

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getFilterAcreage, getFilterPrice } from "../../store/actions";
-import SideBarItem from "../../components/SideBarItem";
+import { SideBarItem, RelatedPost } from "../../components";
 const SideBar = () => {
   const dispatch = useDispatch();
   const dataFilterPrice = useSelector((state) => state.filter.dataFilterPrice);
@@ -30,6 +30,7 @@ const SideBar = () => {
         type={"category"}
         dataFilter={categories}
       />
+      <RelatedPost />
     </div>
   );
 };

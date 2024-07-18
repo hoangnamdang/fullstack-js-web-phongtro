@@ -23,3 +23,16 @@ export const getPostsByLimit = async (req, res) => {
     });
   }
 };
+
+export const getNewsPost = async (req, res) => {
+  try {
+    const limit = 10;
+    const response = await postService.getNewsPost(limit);
+    res.status(200).json(response);
+  } catch (error) {
+    res.status(500).json({
+      err: -1,
+      msg: "fail to get news post " + error,
+    });
+  }
+};

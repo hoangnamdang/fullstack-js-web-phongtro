@@ -19,7 +19,7 @@ const List = () => {
   }, [dispatch, searchParams]);
 
   return (
-    <div className="bg-white rounded-md">
+    <div className="bg-white rounded-md mb-8">
       <div className="p-5">
         <h4 className="font-bold text-xl text-gray-800">
           Tổng 128.761 kết quả

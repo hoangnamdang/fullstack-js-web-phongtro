@@ -136,3 +136,24 @@ export const getPostByLimit = (page, limit, query) =>
       reject(error);
     }
   });
+
+export const getNewsPost = (limit) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const response = await db.Post.findAll({
+        raw: true,
+        nest: true,
+        limit: limit,
+        include: [{ model: db.Image, as: "images", attributes: ["image"] }],
+        order: [["createdAt", "DESC"]],
+        attributes: ["id", "title", "price", "createdAt"],
+      });
+      resolve({
+        err: 0,
+        msg: "get news post success",
+        data: response,
+      });
+    } catch (error) {
+      reject(error);
+    }
+  });
