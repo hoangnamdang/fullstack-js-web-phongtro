@@ -11,6 +11,8 @@ function App(props) {
   useEffect(() => {
     dispatch(action.getFilterPrice());
     dispatch(action.getFilterAcreage());
+    dispatch(action.getCategory());
+    dispatch(action.getListProvince());
   }, [dispatch]);
 
   return (

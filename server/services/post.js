@@ -98,6 +98,12 @@ export const getPostByLimit = (query) =>
       };
     }
 
+    if (await hasValue(query?.province)) {
+      searchStr.provinceId = {
+        [Op.eq]: query?.province,
+      };
+    }
+
     const formatLimit = Number(limit);
     try {
       const pageStart = 1;

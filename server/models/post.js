@@ -40,6 +40,7 @@ module.exports = (sequelize, DataTypes) => {
       imagesId: DataTypes.STRING,
       price: DataTypes.DECIMAL(10, 2),
       acreage: DataTypes.INTEGER,
+      provinceId: DataTypes.STRING,
     },
     {
       sequelize,

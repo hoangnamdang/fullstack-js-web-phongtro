@@ -31,3 +31,13 @@ export const generateLabelCode = (txt) => {
     .toUpperCase()
     .slice(-4);
 };
+
+export const generateCodeProvince = (txt) => {
+  let str = toLowerCaseNonAccentVietnamese(txt);
+  return str
+    .split(" ")
+    .map((d) => d[0])
+    .join("")
+    .toUpperCase()
+    .slice();
+};

@@ -21,3 +21,9 @@ export const hasValue = async (param) => {
   }
   return false;
 };
+
+export const getProvince = (str) => {
+  if (!str) return null;
+  let arrAddress = str.split(",");
+  return arrAddress[arrAddress.length - 1].trim();
+};

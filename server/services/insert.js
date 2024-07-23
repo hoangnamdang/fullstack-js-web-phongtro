@@ -3,84 +3,128 @@ import chothuephongtro from "../data/chothuephongtro.json";
 import nhachothue from "../data/nhachothue.json";
 import chothuecanho from "../data/chothuecanho.json";
 import chothuematbang from "../data/chothuematbang.json";
-import { generateLabelCode } from "../utils/generateCode";
+import { generateCodeProvince, generateLabelCode } from "../utils/generateCode";
 import { v4 } from "uuid";
-import { getAcreage, getStringToPrice } from "../utils/commonUtils";
+import {
+  getAcreage,
+  getProvince,
+  getStringToPrice,
+} from "../utils/commonUtils";
 export const insertData = () =>
   new Promise(async (resolve, reject) => {
     try {
-      const categoryCode = "CTMB";
-      const categoryValue = "Cho thuê mặt bằng";
-      const categoryHeader = chothuematbang?.header?.title;
-      const categorySubheader = chothuematbang?.header?.description;
-      await db.Category.create({
-        code: categoryCode,
-        value: categoryValue,
-        header: categoryHeader,
-        subheader: categorySubheader,
-      });
-      for (let item of chothuematbang.body) {
-        const labelCode = generateLabelCode(
-          item?.overview?.content.find((i) => i.name === "Chuyên mục:")?.content
-        );
-        const userId = v4();
-        const overviewId = v4();
-        const imagesId = v4();
-        const postId = v4();
-        const attributeId = v4();
+      let listAllData = [
+        {
+          categoryCode: "CTPT",
+          categoryValue: "Cho thuê phòng trọ",
+          dataHeader: chothuephongtro?.header,
+          dataBody: chothuephongtro.body,
+        },
+        {
+          categoryCode: "NCT",
+          categoryValue: "Nhà cho thuê",
+          dataHeader: nhachothue?.header,
+          dataBody: nhachothue.body,
+        },
+        {
+          categoryCode: "CTCH",
+          categoryValue: "Cho thuê căn hộ",
+          dataHeader: chothuecanho?.header,
+          dataBody: chothuecanho.body,
+        },
+        {
+          categoryCode: "CTMB",
+          categoryValue: "Cho thuê mặt bằng",
+          dataHeader: chothuematbang?.header,
+          dataBody: chothuematbang.body,
+        },
+      ];
 
-        await db.Post.create({
-          id: postId,
-          title: item?.header?.title,
-          star: item?.header?.star,
-          labelCode: labelCode,
-          address: item?.header?.address,
-          attributesId: attributeId,
-          categoryCode: categoryCode,
-          description: JSON.stringify(item?.mainContent?.content),
-          userId: userId,
-          overviewId: overviewId,
-          imagesId: imagesId,
-          price: getStringToPrice(item?.header?.attributes?.price),
-          acreage: getAcreage(item?.header?.attributes?.acreage),
+      for (let itemData of listAllData) {
+        const categoryCode = itemData.categoryCode;
+        await db.Category.create({
+          code: categoryCode,
+          value: itemData.categoryValue,
+          header: itemData?.dataHeader?.title,
+          subheader: itemData?.dataHeader?.description,
         });
+        for (let item of itemData.dataBody) {
+          const labelCode = generateLabelCode(
+            item?.overview?.content.find((i) => i.name === "Chuyên mục:")
+              ?.content
+          );
+          const userId = v4();
+          const overviewId = v4();
+          const imagesId = v4();
+          const postId = v4();
+          const attributeId = v4();
+          const provinceId = generateCodeProvince(
+            getProvince(item?.header?.address)
+          );
+          await db.Post.create({
+            id: postId,
+            title: item?.header?.title,
+            star: item?.header?.star,
+            labelCode: labelCode,
+            address: item?.header?.address,
+            attributesId: attributeId,
+            categoryCode: categoryCode,
+            description: JSON.stringify(item?.mainContent?.content),
+            userId: userId,
+            overviewId: overviewId,
+            imagesId: imagesId,
+            price: getStringToPrice(item?.header?.attributes?.price),
+            provinceId: provinceId,
+            acreage: getAcreage(item?.header?.attributes?.acreage),
+          });
+          await db.Province.findOrCreate({
+            where: { code: provinceId },
+            defaults: {
+              code: provinceId,
+              value: getProvince(item?.header?.address),
+            },
+          });
 
-        await db.Overview.create({
-          id: overviewId,
-          code: item?.overview?.content.find((i) => i.name === "Mã tin:")
-            ?.content,
-          area: item?.overview?.content.find((i) => i.name === "Khu vực")
-            ?.content,
-          type: item?.overview?.content.find((i) => i.name === "Loại tin rao:")
-            ?.content,
-          target: item?.overview?.content.find(
-            (i) => i.name === "Đối tượng thuê:"
-          )?.content,
-          bonus: item?.overview?.content.find((i) => i.name === "Gói tin:")
-            ?.content,
-          created: item?.overview?.content.find((i) => i.name === "Ngày đăng:")
-            ?.content,
-          expired: item?.overview?.content.find(
-            (i) => i.name === "Ngày hết hạn:"
-          )?.content,
-        });
-        await db.Label.findOrCreate({
-          where: { code: labelCode },
-          defaults: {
-            code: labelCode,
-            value: item?.overview?.content.find((i) => i.name === "Chuyên mục:")
+          await db.Overview.create({
+            id: overviewId,
+            code: item?.overview?.content.find((i) => i.name === "Mã tin:")
               ?.content,
-          },
-        });
-        await db.Attribute.create({
-          id: attributeId,
-          published: item?.header?.attributes?.published,
-          hashtag: item?.header?.attributes?.hashtag,
-        });
-        await db.Image.create({
-          id: imagesId,
-          image: JSON.stringify(item?.images),
-        });
+            area: item?.overview?.content.find((i) => i.name === "Khu vực")
+              ?.content,
+            type: item?.overview?.content.find(
+              (i) => i.name === "Loại tin rao:"
+            )?.content,
+            target: item?.overview?.content.find(
+              (i) => i.name === "Đối tượng thuê:"
+            )?.content,
+            bonus: item?.overview?.content.find((i) => i.name === "Gói tin:")
+              ?.content,
+            created: item?.overview?.content.find(
+              (i) => i.name === "Ngày đăng:"
+            )?.content,
+            expired: item?.overview?.content.find(
+              (i) => i.name === "Ngày hết hạn:"
+            )?.content,
+          });
+          await db.Label.findOrCreate({
+            where: { code: labelCode },
+            defaults: {
+              code: labelCode,
+              value: item?.overview?.content.find(
+                (i) => i.name === "Chuyên mục:"
+              )?.content,
+            },
+          });
+          await db.Attribute.create({
+            id: attributeId,
+            published: item?.header?.attributes?.published,
+            hashtag: item?.header?.attributes?.hashtag,
+          });
+          await db.Image.create({
+            id: imagesId,
+            image: JSON.stringify(item?.images),
+          });
+        }
       }
       resolve("done");
     } catch (error) {

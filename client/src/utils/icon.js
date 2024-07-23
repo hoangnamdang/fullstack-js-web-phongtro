@@ -14,6 +14,7 @@ import { CiHeart } from "react-icons/ci";
 import { MdKeyboardDoubleArrowLeft } from "react-icons/md";
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 import { TfiAngleRight } from "react-icons/tfi";
+import { ImArrowLeft2 } from "react-icons/im";
 export {
   FaHeart,
   FiUserPlus,
@@ -31,4 +32,5 @@ export {
   MdKeyboardDoubleArrowLeft,
   MdKeyboardDoubleArrowRight,
   TfiAngleRight,
+  ImArrowLeft2,
 };

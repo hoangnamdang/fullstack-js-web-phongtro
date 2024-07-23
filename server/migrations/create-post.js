@@ -45,6 +45,9 @@ module.exports = {
       acreage: {
         type: Sequelize.INTEGER,
       },
+      provinceId: {
+        type: Sequelize.STRING,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
