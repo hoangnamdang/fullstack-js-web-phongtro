@@ -7,10 +7,11 @@ require("dotenv").config();
 const hashPassword = (password) =>
   bcrypt.hashSync(password, bcrypt.genSaltSync(12));
 
-export const regester = (body) =>
+export const register = (body) =>
   new Promise(async (resolve, reject) => {
     try {
       const response = await db.User.findOrCreate({
+        raw: true,
         where: { phone: body.phone },
         defaults: {
           phone: body.phone,
@@ -26,10 +27,17 @@ export const regester = (body) =>
           process.env.SECRECT_KEY,
           { expiresIn: "2d" }
         );
+
+      const user = {
+        name: response[0].name,
+        phone: response[0].phone,
+      };
+
       resolve({
         err: token ? 0 : 2,
         msg: token ? "Register successfully" : "Phone is used",
         token: token ? token : null,
+        data: user,
       });
     } catch (error) {
       reject(error);
@@ -52,6 +60,10 @@ export const login = (body) =>
           process.env.SECRECT_KEY,
           { expiresIn: "2d" }
         );
+      const user = {
+        name: response.name,
+        phone: response.phone,
+      };
       resolve({
         err: token ? 0 : 2,
         msg: token
@@ -60,6 +72,7 @@ export const login = (body) =>
           ? "Password is wrong"
           : "Phone not found",
         token: token ? token : null,
+        data: token ? user : null,
       });
     } catch (error) {
       reject(error);

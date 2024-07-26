@@ -1,12 +1,14 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import { Header, Navigation, Search, Info, Support } from "./index";
 function Home() {
+  const location = useLocation();
+  const isFlagAccount = location?.state?.flag;
   return (
     <div className="m-auto h-full bg-primary">
       <Header />
       <Navigation />
-      <Search />
+      {!isFlagAccount && <Search />}
       <div>
         <Outlet />
       </div>

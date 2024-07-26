@@ -7,3 +7,11 @@ export const handleRegister = async (params) => {
   });
   return response;
 };
+
+export const handleLogin = async (params) => {
+  const response = await axios.post("/api/v1/auth/login", {
+    phone: params.phone,
+    password: params.password,
+  });
+  return response;
+};

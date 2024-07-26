@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import logo from "./../../asset/img/logo-phongtro.png";
 import {
   CiHeart,
@@ -12,16 +12,20 @@ import { Path } from "../../utils/path";
 import { Button } from "../../components";
 import { useDispatch, useSelector } from "react-redux";
 import * as action from "../../store/actions";
+import { menuManagerUser } from "../../utils/menuManagerUser";
 function Header() {
   const dispatch = useDispatch();
-  const authState = useSelector((state) => state.auth);
+  const { isLoggedIn, data: user } = useSelector((state) => state.auth);
   const navigate = useNavigate();
+  const [isShowMenu, setShowMenu] = useState(false);
   const goLogin = () => {
     return navigate(Path.LOGIN, { state: { flag: "LOGIN" } });
   };
+
   const goRegister = () => {
     return navigate(Path.REGISTER, { state: { flag: "REGISTER" } });
   };
+
   const handleLogout = () => {
     dispatch(action.logout());
   };
@@ -31,7 +35,7 @@ function Header() {
         <img src={logo} width={270} height={40} alt="ttt" />
       </Link>
       <div className="flex items-center gap-4">
-        {!authState.isLoggedIn && (
+        {!isLoggedIn && (
           <>
             <Button
               text={"Yeu thich"}
@@ -52,16 +56,43 @@ function Header() {
             />
           </>
         )}
-        {authState.isLoggedIn && (
-          <>
-            <span>Xin chao user </span>
-            <Button
-              text={"Dang xuat"}
-              customStyle="hover:underline"
-              IcBefore={<CiLogout />}
-              handleClick={handleLogout}
-            />
-          </>
+        {isLoggedIn && (
+          <div className="relative">
+            <div className="flex items-center gap-2">
+              <span>Xin chao {user?.name} </span>
+              <Button
+                text={"Quan ly tai khoan"}
+                customStyle="hover:underline bg-blue-600 text-white p-2"
+                handleClick={() => setShowMenu((prev) => !prev)}
+              />
+            </div>
+            {isShowMenu && (
+              <div className="absolute bg-white shadow-md rounded-sm p-4 right-0">
+                <ul>
+                  {menuManagerUser.map((menu) => {
+                    return (
+                      <li key={menu.id} className="mb-2 hover:bg-blue-400">
+                        <Link
+                          to={menu.path}
+                          className=" p-2 flex items-center gap-2"
+                        >
+                          {menu.icon}
+                          {menu.name}
+                        </Link>
+                      </li>
+                    );
+                  })}
+                  <li
+                    onClick={handleLogout}
+                    className="p-2 flex items-center gap-2 cursor-pointer"
+                  >
+                    <CiLogout />
+                    <p>thoat</p>
+                  </li>
+                </ul>
+              </div>
+            )}
+          </div>
         )}
 
         <Button

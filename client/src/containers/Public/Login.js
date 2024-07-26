@@ -34,7 +34,7 @@ function Login() {
   const handleValidation = () => {
     let errorInput = {};
     let formIsValid = true;
-    if (!hasValue(dataForm.name)) {
+    if (!hasValue(dataForm.name) && flag === "REGISTER") {
       formIsValid = false;
       errorInput["name"] = "ten khong duoc de trong";
     }
@@ -51,7 +51,7 @@ function Login() {
       formIsValid = false;
       errorInput["phone"] = "sdt khong hop le";
     }
-    if (hasValue(dataForm.password) && !validationPhone(dataForm.password)) {
+    if (hasValue(dataForm.password) && !validationPassword(dataForm.password)) {
       formIsValid = false;
       errorInput["password"] = "mat khau khong hop le";
     }
@@ -73,7 +73,12 @@ function Login() {
 
   const handleClick = () => {
     if (handleValidation()) {
-      dispatch(actions.register(dataForm));
+      if (flag === "REGISTER") {
+        dispatch(actions.register(dataForm));
+      }
+      if (flag === "LOGIN") {
+        dispatch(actions.login(dataForm));
+      }
     }
   };
 
@@ -112,7 +117,7 @@ function Login() {
           bgColor="bg-blue-900"
           color="text-white"
           customStyle="flex justify-center p-4 rounded-sm font-semibold"
-          text={flag === "LOGIN" ? "Dang ky" : "Dang nhap"}
+          text={flag === "LOGIN" ? "Dang nhap" : "Dang ky"}
           handleClick={handleClick}
         />
         <div className="flex items-center justify-between mt-5">

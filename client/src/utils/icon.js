@@ -15,6 +15,9 @@ import { MdKeyboardDoubleArrowLeft } from "react-icons/md";
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 import { TfiAngleRight } from "react-icons/tfi";
 import { ImArrowLeft2 } from "react-icons/im";
+import { FaRegEdit } from "react-icons/fa";
+import { RiPagesLine } from "react-icons/ri";
+import { FaUserAlt } from "react-icons/fa";
 export {
   FaHeart,
   FiUserPlus,
@@ -33,4 +36,7 @@ export {
   MdKeyboardDoubleArrowRight,
   TfiAngleRight,
   ImArrowLeft2,
+  FaRegEdit,
+  RiPagesLine,
+  FaUserAlt,
 };

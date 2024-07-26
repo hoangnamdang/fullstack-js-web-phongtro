@@ -10,7 +10,7 @@ export const register = async (req, res) => {
       });
     }
 
-    const response = await authService.regester(req.body);
+    const response = await authService.register(req.body);
     return res.status(200).json(response);
   } catch (error) {
     return res.status(500).json({
