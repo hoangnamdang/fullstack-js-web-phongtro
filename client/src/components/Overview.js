@@ -193,24 +193,25 @@ const Overview = ({
       <div className="mb-2">
         <span className="text-base font-semibold mb-1 block">anh da chon</span>
         <div className="flex items-center gap-3">
-          {JSON.parse(dataPayload.images)?.map((image) => {
-            return (
-              <div key={image} className="relative w-[150px] h-[150px]">
-                <img
-                  src={image}
-                  alt=""
-                  className="w-full h-full object-cover block absolute"
-                />
-                <span
-                  title="xoa"
-                  onClick={() => handelDeleteImage(image)}
-                  className="absolute right-2 top-3 cursor-pointer"
-                >
-                  <MdDelete size={30} />
-                </span>
-              </div>
-            );
-          })}
+          {dataPayload.images &&
+            JSON.parse(dataPayload.images)?.map((image) => {
+              return (
+                <div key={image} className="relative w-[150px] h-[150px]">
+                  <img
+                    src={image}
+                    alt=""
+                    className="w-full h-full object-cover block absolute"
+                  />
+                  <span
+                    title="xoa"
+                    onClick={() => handelDeleteImage(image)}
+                    className="absolute right-2 top-3 cursor-pointer"
+                  >
+                    <MdDelete size={30} />
+                  </span>
+                </div>
+              );
+            })}
         </div>
       </div>
     </div>

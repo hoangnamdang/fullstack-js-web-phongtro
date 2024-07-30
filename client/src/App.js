@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import * as action from "./store/actions";
 import System from "./containers/System/System";
 import CreatePost from "./containers/System/CreatePost";
+import ManagerPost from "./containers/System/ManagerPost";
 
 function App(props) {
   const dispatch = useDispatch();
@@ -31,6 +32,7 @@ function App(props) {
         </Route>
         <Route path={Path.SYSTEM} element={<System />}>
           <Route path={Path.CREATE_POST} element={<CreatePost />} />
+          <Route path={Path.MANAGER_POST} element={<ManagerPost />} />
         </Route>
       </Routes>
     </div>

@@ -5,22 +5,21 @@ import { apiCreatePost } from "../../services/post";
 import { useSelector } from "react-redux";
 import Swal from "sweetalert2";
 
-const initPayload = {
-  title: "",
-  address: "",
-  categoryCode: "",
-  description: "",
-  images: "",
-  price: 0,
-  acreage: 0,
-  provinceId: "",
-  provinceName: "",
-  districtName: "",
-  districtId: "",
-  targetId: "",
-};
-
-const CreatePost = () => {
+const CreatePost = ({ dataEditPost }) => {
+  const initPayload = {
+    title: dataEditPost?.title || "",
+    address: dataEditPost?.address || "",
+    categoryCode: dataEditPost?.categoryCode || "",
+    description: dataEditPost?.categoryCode || "",
+    images: "",
+    price: dataEditPost?.price || 0,
+    acreage: dataEditPost?.acreage || 0,
+    provinceId: "",
+    provinceName: "",
+    districtName: "",
+    districtId: "",
+    targetId: "",
+  };
   const category = useSelector((state) => state.app.category);
   const { data: user } = useSelector((state) => state.auth);
   const [dataPayload, setDataPayload] = useState(initPayload);
@@ -29,8 +28,8 @@ const CreatePost = () => {
     address: "",
     categoryCode: "",
     description: "",
-    price: 0,
-    acreage: 0,
+    price: "",
+    acreage: "",
     provinceId: "",
     districtId: "",
   });

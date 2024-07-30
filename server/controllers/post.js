@@ -79,3 +79,41 @@ export const createPost = async (req, res) => {
     });
   }
 };
+
+export const getPostDemoUpdate = async (req, res) => {
+  try {
+    const { id } = req.user;
+    if (!id)
+      return res.status(400).json({
+        err: 1,
+        msg: "missing field",
+      });
+    const response = await postService.getPostDemoUpdate(id);
+    res.status(200).json(response);
+  } catch (error) {
+    res.status(500).json({
+      err: -1,
+      msg: "fail to get news post " + error,
+    });
+  }
+};
+
+export const deletePost = async (req, res) => {
+  try {
+    const { id } = req.user;
+    const idPost = req.params.id;
+    console.log(req.body);
+    if (!id || !idPost)
+      return res.status(400).json({
+        err: 1,
+        msg: "missing field",
+      });
+    const response = await postService.deletePost(idPost);
+    res.status(200).json(response);
+  } catch (error) {
+    res.status(500).json({
+      err: -1,
+      msg: "fail to get news post " + error,
+    });
+  }
+};

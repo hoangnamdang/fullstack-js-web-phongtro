@@ -1,6 +1,7 @@
 import {
   apiGetAllPost,
   apiGetNewsPost,
+  apiGetPostDemoUpdate,
   apiGetPostsByLimit,
 } from "../../services/post";
 import actionTypes from "./actionTypes";
@@ -78,6 +79,31 @@ export const getNewsPost = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: actionTypes.GET_NEWS_POST_FAIL,
+      msg: error,
+      data: null,
+    });
+  }
+};
+
+export const getPostDemoUpdate = () => async (dispatch) => {
+  try {
+    const response = await apiGetPostDemoUpdate();
+    if (response.data.err === 0) {
+      dispatch({
+        type: actionTypes.GET_POST_DEMO_UPDATE_SUCCESS,
+        msg: response.data.msg,
+        data: response.data.data,
+      });
+    } else {
+      dispatch({
+        type: actionTypes.GET_POST_DEMO_UPDATE_SUCCESS,
+        msg: response.data.msg,
+        data: null,
+      });
+    }
+  } catch (error) {
+    dispatch({
+      type: actionTypes.GET_POST_DEMO_UPDATE_FAIL,
       msg: error,
       data: null,
     });

@@ -24,3 +24,13 @@ export const apiCreatePost = async (formData) => {
   });
   return response;
 };
+
+export const apiGetPostDemoUpdate = async () => {
+  const response = await axios.get("/api/v1/post/get-post-update");
+  return response;
+};
+
+export const apiDeletePost = async (idPost) => {
+  const response = await axios.delete(`/api/v1/post/delete-post/${idPost}`);
+  return response;
+};

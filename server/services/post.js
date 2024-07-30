@@ -266,3 +266,35 @@ export const createPost = (formData) =>
       reject(error);
     }
   });
+
+export const getPostDemoUpdate = (userId) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const response = await db.Post.findAll({
+        where: { userId: userId },
+        raw: true,
+      });
+      resolve({
+        err: 0,
+        msg: "success get post",
+        data: response,
+      });
+    } catch (error) {
+      reject(error);
+    }
+  });
+
+export const deletePost = (idPost) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const response = await db.Post.destroy({
+        where: { id: idPost },
+      });
+      resolve({
+        err: 0,
+        msg: "delete post success",
+      });
+    } catch (error) {
+      reject(error);
+    }
+  });

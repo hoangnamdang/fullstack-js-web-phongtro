@@ -7,6 +7,7 @@ const initialState = {
     listPost: [],
   },
   newsPost: [],
+  listPostDemoUpdate: [],
 };
 
 const postReducer = (state = initialState, action) => {
@@ -38,6 +39,12 @@ const postReducer = (state = initialState, action) => {
     }
     case actionTypes.GET_NEWS_POST_FAIL: {
       return { ...state, newsPost: [] };
+    }
+    case actionTypes.GET_POST_DEMO_UPDATE_SUCCESS: {
+      return { ...state, listPostDemoUpdate: action.data };
+    }
+    case actionTypes.GET_POST_DEMO_UPDATE_FAIL: {
+      return { ...state, listPostDemoUpdate: [] };
     }
     default:
       return state;
