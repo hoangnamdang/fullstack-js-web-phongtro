@@ -27,3 +27,7 @@ export const getProvince = (str) => {
   let arrAddress = str.split(",");
   return arrAddress[arrAddress.length - 1].trim();
 };
+
+export const generateSixNumHashtag = () => {
+  return Math.floor(100000 + Math.random() * 900000);
+};

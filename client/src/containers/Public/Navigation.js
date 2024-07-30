@@ -24,7 +24,7 @@ function Navigation() {
                   key={lk.code}
                   state={{ categoryCode: lk.code }}
                   className={({ isActive }) => (isActive ? active : notActive)}
-                  to={string_to_slug(lk.value)}
+                  to={`/${string_to_slug(lk.value)}`}
                 >
                   {lk.value}
                 </NavLink>

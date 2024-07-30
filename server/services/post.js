@@ -1,7 +1,12 @@
-import { Op } from "sequelize";
+import { Op, where } from "sequelize";
 import db from "../models";
-import { hasValue } from "../utils/commonUtils";
-
+import {
+  generateSixNumHashtag,
+  getProvince,
+  hasValue,
+} from "../utils/commonUtils";
+import { v4 } from "uuid";
+import { generateCodeProvince, generateLabelCode } from "../utils/generateCode";
 export const getPosts = () =>
   new Promise(async (resolve, reject) => {
     try {
@@ -167,6 +172,95 @@ export const getNewsPost = (limit) =>
         err: 0,
         msg: "get news post success",
         data: response,
+      });
+    } catch (error) {
+      reject(error);
+    }
+  });
+
+export const createPost = (formData) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const title = formData.title;
+      const star = 5;
+      const labelCode = generateLabelCode(formData.labelCodeName);
+      const address = formData.address;
+      const attributesId = v4();
+      const categoryCode = formData.categoryCode;
+      const description = formData.description;
+      const userId = formData.userId;
+      const overviewId = v4();
+      const imagesId = v4();
+      const price = formData.price;
+      const acreage = formData.acreage;
+      const provinceId = generateCodeProvince(getProvince(formData.address));
+      const postId = v4();
+      const provinceName = formData.provinceName;
+      const hashtag = generateSixNumHashtag();
+      const labelCodeName = formData.labelCodeName;
+      const targetName = formData.targetName;
+      const image = formData.images;
+      const currentDate = new Date().toISOString().split("T")[0];
+      let dateExpired = new Date();
+      dateExpired.setDate(dateExpired.getDate() + 10);
+
+      await db.Post.create({
+        id: postId,
+        title: title,
+        star: star,
+        labelCode: labelCode,
+        address: address,
+        attributesId: attributesId,
+        categoryCode: categoryCode,
+        description: description,
+        userId: userId,
+        overviewId: overviewId,
+        imagesId: imagesId,
+        price: price,
+        acreage: acreage,
+        provinceId: provinceId,
+      });
+
+      await db.Province.findOrCreate({
+        where: { code: provinceId },
+        defaults: {
+          code: provinceId,
+          value: provinceName,
+        },
+      });
+
+      await db.Overview.create({
+        id: overviewId,
+        code: `#$${hashtag}`,
+        area: labelCodeName,
+        type: "Phòng trọ, nhà trọ",
+        target: targetName,
+        bonus: "Tin thuong",
+        created: new Date(),
+        expired: dateExpired,
+      });
+
+      await db.Label.findOrCreate({
+        where: { code: labelCode },
+        defaults: {
+          code: labelCode,
+          value: labelCodeName,
+        },
+      });
+
+      await db.Image.create({
+        id: imagesId,
+        image: image,
+      });
+
+      await db.Attribute.create({
+        id: attributesId,
+        published: currentDate,
+        hashtag: hashtag,
+      });
+      resolve({
+        err: 0,
+        msg: "create post success",
       });
     } catch (error) {
       reject(error);

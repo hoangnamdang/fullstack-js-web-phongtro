@@ -1,4 +1,4 @@
-import { handleCategory } from "../../services/category";
+import { handleCategory } from "../../services/app";
 import actionTypes from "./actionTypes";
 
 export const getCategory = () => async (dispatch) => {

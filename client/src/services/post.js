@@ -17,3 +17,10 @@ export const apiGetNewsPost = async () => {
   const response = await axios.get("/api/v1/post/news-post");
   return response;
 };
+
+export const apiCreatePost = async (formData) => {
+  const response = await axios.post("/api/v1/post/create-post", {
+    ...formData,
+  });
+  return response;
+};

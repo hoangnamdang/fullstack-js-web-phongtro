@@ -5,3 +5,5 @@ https://github.com/sequelize/sequelize/issues/12336
 https://stackoverflow.com/questions/75670683/avoid-bypass-query-parameters-if-value-is-null-on-sequelize-express-node-js
 
 https://stackoverflow.com/questions/6137986/javascript-roundoff-number-to-nearest-0-5
+
+https://lechihuy.dev/en/blog/how-to-use-calc-in-tailwind-css

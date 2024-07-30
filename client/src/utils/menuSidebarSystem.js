@@ -1,5 +1,5 @@
 import { FaRegEdit, RiPagesLine, FaUserAlt } from "./icon";
-export const menuManagerUser = [
+export const menuSidebarSystem = [
   {
     id: 1,
     name: "Dang tin cho thue",

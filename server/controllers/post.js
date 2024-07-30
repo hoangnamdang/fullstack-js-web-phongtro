@@ -1,4 +1,5 @@
 import * as postService from "../services/post";
+import { hasValue } from "../utils/commonUtils";
 export const getPosts = async (req, res) => {
   try {
     const response = await postService.getPosts();
@@ -32,6 +33,49 @@ export const getNewsPost = async (req, res) => {
     res.status(500).json({
       err: -1,
       msg: "fail to get news post " + error,
+    });
+  }
+};
+
+export const createPost = async (req, res) => {
+  try {
+    const {
+      title,
+      address,
+      categoryCode,
+      description,
+      images,
+      price,
+      acreage,
+      provinceName,
+      targetName,
+      labelCodeName,
+      userId,
+    } = req.body;
+    if (
+      !title ||
+      !address ||
+      !categoryCode ||
+      !description ||
+      !images ||
+      price === "" ||
+      acreage === "" ||
+      !provinceName ||
+      !targetName ||
+      !labelCodeName ||
+      !userId
+    ) {
+      return res.status(400).json({
+        err: 1,
+        msg: "Missing field",
+      });
+    }
+    const response = await postService.createPost(req.body);
+    res.status(200).json(response);
+  } catch (error) {
+    res.status(500).json({
+      err: -1,
+      msg: "fail to create post " + error,
     });
   }
 };

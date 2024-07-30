@@ -17,7 +17,7 @@ const persistConfig = {
 const authPersistReducer = {
   ...persistConfig,
   key: "auth",
-  whitelist: ["isLoggedIn", "token"],
+  whitelist: ["isLoggedIn", "token", "data"],
 };
 
 const rootReducer = combineReducers({

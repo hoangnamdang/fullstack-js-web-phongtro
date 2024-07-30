@@ -29,6 +29,7 @@ export const register = (body) =>
         );
 
       const user = {
+        id: response[0].id,
         name: response[0].name,
         phone: response[0].phone,
       };
@@ -61,6 +62,7 @@ export const login = (body) =>
           { expiresIn: "2d" }
         );
       const user = {
+        id: response.id,
         name: response.name,
         phone: response.phone,
       };

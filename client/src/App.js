@@ -4,6 +4,8 @@ import { Route, Routes } from "react-router-dom";
 import { Home, Login, Homepage, Rent } from "./containers/Public";
 import { useDispatch } from "react-redux";
 import * as action from "./store/actions";
+import System from "./containers/System/System";
+import CreatePost from "./containers/System/CreatePost";
 
 function App(props) {
   const dispatch = useDispatch();
@@ -26,6 +28,9 @@ function App(props) {
           <Route path={Path.NHA_CHO_THUE} element={<Rent />} />
           <Route path={Path.CHO_THUE_MAT_BANG} element={<Rent />} />
           <Route path={Path.CHO_THUE_CAN_HO} element={<Rent />} />
+        </Route>
+        <Route path={Path.SYSTEM} element={<System />}>
+          <Route path={Path.CREATE_POST} element={<CreatePost />} />
         </Route>
       </Routes>
     </div>
