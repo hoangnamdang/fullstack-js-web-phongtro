@@ -18,6 +18,10 @@ import { ImArrowLeft2 } from "react-icons/im";
 import { FaRegEdit } from "react-icons/fa";
 import { RiPagesLine } from "react-icons/ri";
 import { FaUserAlt } from "react-icons/fa";
+import { RiHashtag } from "react-icons/ri";
+import { FaRegClock } from "react-icons/fa";
+import { FaPhoneAlt } from "react-icons/fa";
+import { SiZalo } from "react-icons/si";
 export {
   FaHeart,
   FiUserPlus,
@@ -39,4 +43,8 @@ export {
   FaRegEdit,
   RiPagesLine,
   FaUserAlt,
+  RiHashtag,
+  FaRegClock,
+  FaPhoneAlt,
+  SiZalo,
 };

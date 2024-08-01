@@ -7,7 +7,9 @@ import * as action from "./store/actions";
 import System from "./containers/System/System";
 import CreatePost from "./containers/System/CreatePost";
 import ManagerPost from "./containers/System/ManagerPost";
-
+import DetailPost from "./containers/Public/DetailPost";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 function App(props) {
   const dispatch = useDispatch();
 
@@ -29,6 +31,8 @@ function App(props) {
           <Route path={Path.NHA_CHO_THUE} element={<Rent />} />
           <Route path={Path.CHO_THUE_MAT_BANG} element={<Rent />} />
           <Route path={Path.CHO_THUE_CAN_HO} element={<Rent />} />
+          <Route path={Path.DETAIL_POST} element={<DetailPost />} />
+          <Route path={Path.DETAIL_ALL} element={<DetailPost />} />
         </Route>
         <Route path={Path.SYSTEM} element={<System />}>
           <Route path={Path.CREATE_POST} element={<CreatePost />} />

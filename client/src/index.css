@@ -24,3 +24,35 @@ input[type=range]::-webkit-slider-runnable-track {
   appearance: none;
   height: 5px;
 }
+
+.slick-slider {
+  position: relative;
+}
+.slick-slider .slick-arrow {
+  position: absolute;
+}
+
+.slick-slider .slick-arrow.slick-prev {
+  top: 50%;
+  transform: translateY(-50%,-50%);
+  left: 30px;
+  z-index: 10;
+}
+
+.slick-slider .slick-arrow.slick-next {
+  top: 50%;
+  transform: translateY(-50%,-50%);
+  right: 30px;
+  z-index: 10;
+}
+
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}

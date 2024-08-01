@@ -34,3 +34,8 @@ export const apiDeletePost = async (idPost) => {
   const response = await axios.delete(`/api/v1/post/delete-post/${idPost}`);
   return response;
 };
+
+export const apiGetPost = async (idPost) => {
+  const response = await axios.get(`/api/v1/post/get-post/${idPost}`);
+  return response;
+};

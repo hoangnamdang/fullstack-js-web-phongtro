@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { CiHeart, FaStar, FaHeart } from "../utils/icon";
+import { Path } from "../utils/path";
+import { string_to_slug } from "../utils/stringToSlug";
 const ListItem = ({ data }) => {
   const [isHover, setIsHover] = useState(false);
   const images = JSON.parse(data.images.image);
@@ -50,9 +52,13 @@ const ListItem = ({ data }) => {
             </div>
           )}
 
-          <span className="text-red-700 text-base font-bold hover:underline">
-            {data?.title ?? ""}
-          </span>
+          <Link
+            to={`${Path.DETAIL}${string_to_slug(data?.title ?? "")}/${data.id}`}
+          >
+            <span className="text-red-700 text-base font-bold hover:underline">
+              {data?.title ?? ""}
+            </span>
+          </Link>
         </div>
         <div>
           <span className="font-bold text-green-600 text-lg mr-4">

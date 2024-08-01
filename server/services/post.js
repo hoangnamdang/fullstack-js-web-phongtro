@@ -298,3 +298,58 @@ export const deletePost = (idPost) =>
       reject(error);
     }
   });
+
+export const getPost = (id) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const response = await db.Post.findOne({
+        where: { id: id },
+        raw: true,
+        nest: true,
+        include: [
+          {
+            model: db.Attribute,
+            as: "attributes",
+            attributes: ["id", "published", "hashtag"],
+          },
+          {
+            model: db.Image,
+            as: "images",
+            attributes: ["image"],
+          },
+          {
+            model: db.Label,
+            as: "labels",
+            attributes: ["code", "value"],
+          },
+          {
+            model: db.Overview,
+            as: "overviews",
+            attributes: { exclude: ["updatedAt", "createdAt"] },
+          },
+          {
+            model: db.User,
+            as: "user",
+            attributes: ["name", "phone", "avatar"],
+          },
+        ],
+        attributes: {
+          exclude: [
+            "attributesId",
+            "userId",
+            "overviewId",
+            "imagesId",
+            "updatedAt",
+            "createdAt",
+          ],
+        },
+      });
+      resolve({
+        err: 0,
+        msg: "get post success",
+        data: response,
+      });
+    } catch (error) {
+      reject(error);
+    }
+  });

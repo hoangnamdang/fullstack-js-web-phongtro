@@ -102,7 +102,6 @@ export const deletePost = async (req, res) => {
   try {
     const { id } = req.user;
     const idPost = req.params.id;
-    console.log(req.body);
     if (!id || !idPost)
       return res.status(400).json({
         err: 1,
@@ -114,6 +113,19 @@ export const deletePost = async (req, res) => {
     res.status(500).json({
       err: -1,
       msg: "fail to get news post " + error,
+    });
+  }
+};
+
+export const getPost = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const response = await postService.getPost(id);
+    res.status(200).json(response);
+  } catch (error) {
+    res.status(500).json({
+      err: -1,
+      msg: "fail to get post " + error,
     });
   }
 };

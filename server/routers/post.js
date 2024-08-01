@@ -5,6 +5,7 @@ const router = express.Router();
 router.get("/all", postController.getPosts);
 router.get("/limit", postController.getPostsByLimit);
 router.get("/news-post", postController.getNewsPost);
+router.get("/get-post/:id", postController.getPost);
 
 router.use(verifyToken);
 router.post("/create-post", postController.createPost);
